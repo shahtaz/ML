@@ -70,7 +70,66 @@ int main(){
   print_table(wind_table);
 
   //test phase start from here
+  // 1. read test data
+  // 2. look up table
+  // 3. apply MAP rule
+  // 4. show the predicted output
+
+  DATA test;
+  test.outlook = "Sunny";
+  test.temp = "Cool";
+  test.humidity = "High";
+  test.wind = "Strong";
+
+
+  // pair.first = yes +--+ pair.second = no
   
+  std::pair<float, float> prob_outlook; 
+  std::pair<float, float> prob_temp;
+  std::pair<float, float> prob_humidity;
+  std::pair<float, float> prob_wind;
+  
+  std::pair<float, float> prob_play;
+
+  std::string y = "Yes";
+  std::string n = "No";
+
+  //calculate
+
+  prob_outlook.first = (outlook_table[test.outlook][y]*1.00)/yes_no.first;
+  prob_outlook.second = (outlook_table[test.outlook][n]*1.00)/yes_no.second;
+
+  prob_temp.first = (temp_table[test.temp][y]*1.00)/yes_no.first;
+  prob_temp.second = (temp_table[test.temp][n]*1.00)/yes_no.second;
+
+  prob_humidity.first = (humidity_table[test.humidity][y]*1.00)/yes_no.first;
+  prob_humidity.second = (humidity_table[test.humidity][n]*1.00)/yes_no.second;
+
+  prob_wind.first = (wind_table[test.wind][y]*1.00)/yes_no.first;
+  prob_wind.second = (wind_table[test.wind][n]*1.00)/yes_no.second;
+
+  prob_play.first = (yes_no.first*1.00)/(yes_no.first + yes_no.second);
+  prob_play.second = (yes_no.second*1.00)/(yes_no.first + yes_no.second);
+
+  // do the map rule
+
+  float pred_yes  = prob_outlook.first * prob_temp.first * prob_humidity.first * prob_wind.first * prob_play.first;
+  
+  float pred_no = prob_outlook.second * prob_temp.second * prob_humidity.second * prob_wind.second * prob_play.second;
+
+
+  std::cout<<"P(yes) --> "<<pred_yes<<std::endl;
+  std::cout<<"P(no)  --> "<<pred_no<<std::endl;
+
+  if(pred_yes > pred_no){
+    test.play = y;
+  }else{
+    test.play = n;
+  }
+
+
+
+  std::cout<<"final prediction = "<<test.play<<std::endl;
 
   
   return 0;
