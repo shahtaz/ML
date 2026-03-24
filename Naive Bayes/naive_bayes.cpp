@@ -1,15 +1,12 @@
-#include <algorithm>
+
 #include<iostream>
 #include <string>
 #include<vector>
 #include<fstream>
 #include<utility>
 #include<map>
-#include<set>
 #include<string>
 
-// to do
-// read data
 
 
 // var for data points

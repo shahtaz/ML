@@ -1,0 +1,27 @@
+assume a 3*3 confusion matricx
+
+it has the table like this  [ actual / prediced]
+
+
+[A/P]	| class 1 | class 2 | class 3 
+class 1 |    TP   |   FN    |   FN
+class 2 |    FP   |   TP    |   FN
+class 3 |    FP   |   FP    |   TP
+
+
+
+need to calculate the following values
+1. accuracy                               sum(TP)/total
+
+2. precision                              TP/(TP+FP)
+3. recall                                 TP/(TP+FN)
+4. specificity                            TN/(TN+FP)
+5. f-score [f1]                           (2*precision*recall)/(precision+recall)
+
+
+get value
+ 1. TP --> mat[i][i]
+ 2. FP --> SUM (FPi)
+ 3. FN --> SUM(FNi)
+ 4. TN --> total - (TPi + FPi + FNi)
+
